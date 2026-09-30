@@ -7,7 +7,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: rele-lugat
     steps:
       - name: Kodni olish
         uses: actions/checkout@v4
@@ -15,7 +17,7 @@ jobs:
       - name: Node 20
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: 20
 
       - name: Java 17 (Temurin)
         uses: actions/setup-java@v4
@@ -46,5 +48,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: rele-lugat-apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
-          if-no-files-found: error
+          path: rele-lugat/android/app/build/outputs/apk/debug/app-debug.apk
