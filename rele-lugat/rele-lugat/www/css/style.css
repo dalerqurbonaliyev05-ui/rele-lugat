@@ -1,0 +1,321 @@
+/* Rele Lug'at — mobil-first uslub. Energetika mavzusi: sariq + ko'k. */
+
+:root{
+  --bg:#f4f6fb;
+  --card:#ffffff;
+  --card-2:#eef2f9;
+  --ink:#131a2a;
+  --ink-2:#5a6781;
+  --line:#dfe5f0;
+  --brand:#1553c7;
+  --brand-2:#2f7ff0;
+  --accent:#f5b301;
+  --accent-2:#ffd34d;
+  --ok:#17a35b;
+  --ok-bg:#e4f7ec;
+  --bad:#e03131;
+  --bad-bg:#fdeaea;
+  --shadow:0 2px 10px rgba(18,28,54,.07);
+  --shadow-lg:0 8px 26px rgba(18,28,54,.14);
+  --r:18px;
+  --tabh:60px;
+}
+[data-theme="dark"]{
+  --bg:#0b1220;
+  --card:#141d31;
+  --card-2:#1b2740;
+  --ink:#e8edf7;
+  --ink-2:#97a3bd;
+  --line:#26314b;
+  --brand:#5b9bff;
+  --brand-2:#79b0ff;
+  --accent:#ffc632;
+  --accent-2:#ffd968;
+  --ok:#35d07f;
+  --ok-bg:#12321f;
+  --bad:#ff6b6b;
+  --bad-bg:#3a1414;
+  --shadow:0 2px 10px rgba(0,0,0,.4);
+  --shadow-lg:0 10px 30px rgba(0,0,0,.55);
+}
+
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  background:var(--bg); color:var(--ink);
+  font-size:15px; line-height:1.45;
+  padding-bottom:calc(var(--tabh) + env(safe-area-inset-bottom));
+  overscroll-behavior-y:contain;
+}
+h1,h2,h3{margin:0 0 8px;line-height:1.25}
+h1{font-size:22px}
+h2{font-size:18px}
+h3{font-size:15px}
+p{margin:0 0 10px}
+.hidden{display:none !important}
+.muted{color:var(--ink-2)}
+.tiny{font-size:12px}
+.small{font-size:13px}
+.center{text-align:center}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+
+/* ---------- App bar ---------- */
+.appbar{
+  position:sticky;top:0;z-index:30;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:10px;padding:10px 14px;padding-top:calc(10px + env(safe-area-inset-top));
+  background:linear-gradient(135deg,var(--brand),#0d3d99);
+  color:#fff;box-shadow:var(--shadow);
+}
+[data-theme="dark"] .appbar{background:linear-gradient(135deg,#17233d,#0d1729)}
+.appbar-left{display:flex;align-items:center;gap:10px;min-width:0}
+.appbar-logo{width:34px;height:34px;flex:none}
+.appbar-title{font-weight:700;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.appbar-sub{font-size:11.5px;opacity:.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.appbar-right{display:flex;align-items:center;gap:8px;flex:none}
+.streak-chip{background:rgba(255,255,255,.18);padding:5px 10px;border-radius:999px;font-size:13px;font-weight:600}
+.icon-btn{
+  background:rgba(255,255,255,.18);border:0;color:#fff;
+  width:36px;height:36px;border-radius:12px;font-size:17px;cursor:pointer;
+}
+.icon-btn:active{transform:scale(.94)}
+
+/* ---------- Layout ---------- */
+.view{padding:14px;max-width:640px;margin:0 auto;animation:fade .22s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.card{
+  background:var(--card);border-radius:var(--r);padding:14px;
+  box-shadow:var(--shadow);margin-bottom:12px;border:1px solid var(--line);
+}
+.card.tight{padding:11px}
+.card-row{display:flex;align-items:center;gap:12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stack{display:flex;flex-direction:column;gap:10px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.spacer{flex:1}
+.sep{height:1px;background:var(--line);margin:10px 0}
+
+/* ---------- Buttons ---------- */
+.btn{
+  appearance:none;border:1px solid var(--line);background:var(--card);
+  color:var(--ink);border-radius:14px;padding:11px 14px;font-size:14.5px;
+  font-weight:600;cursor:pointer;transition:transform .08s, filter .15s;
+  font-family:inherit;
+}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--brand);border-color:var(--brand);color:#fff}
+.btn-accent{background:var(--accent);border-color:var(--accent);color:#2a2000}
+.btn-ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.btn-bad{background:var(--bad);border-color:var(--bad);color:#fff}
+.btn-ghost{background:transparent}
+.btn-lg{padding:14px 18px;font-size:16px;width:100%}
+.btn-block{width:100%}
+.btn[disabled]{opacity:.5;pointer-events:none}
+
+.chip{
+  display:inline-flex;align-items:center;gap:5px;
+  background:var(--card-2);border:1px solid var(--line);color:var(--ink-2);
+  border-radius:999px;padding:5px 11px;font-size:12.5px;font-weight:600;cursor:pointer;
+  white-space:nowrap;
+}
+.chip.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.chip-row{display:flex;gap:7px;overflow-x:auto;padding:2px 0 8px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.chip-row::-webkit-scrollbar{display:none}
+
+.badge{display:inline-block;border-radius:8px;padding:2px 8px;font-size:11.5px;font-weight:700}
+.badge-lec{color:#fff}
+.badge-soft{background:var(--card-2);color:var(--ink-2)}
+
+/* ---------- Inputs ---------- */
+.field{display:block;margin-bottom:12px}
+.field>span{display:block;font-size:13px;color:var(--ink-2);margin-bottom:5px;font-weight:600}
+input[type=text],input[type=number],input[type=search],select{
+  width:100%;padding:12px 13px;border-radius:13px;border:1px solid var(--line);
+  background:var(--card-2);color:var(--ink);font-size:15px;font-family:inherit;
+}
+input:focus,select:focus{outline:2px solid var(--brand-2);outline-offset:1px}
+.search-wrap{position:relative;margin-bottom:10px}
+.search-wrap input{padding-left:38px}
+.search-wrap::before{content:"🔎";position:absolute;left:12px;top:11px;font-size:15px;opacity:.6}
+
+/* ---------- Onboarding ---------- */
+.onboard{position:fixed;inset:0;z-index:100;background:linear-gradient(160deg,#0d3d99,#0b1220);
+  display:flex;align-items:center;justify-content:center;padding:22px}
+.onboard-card{background:var(--card);border-radius:24px;padding:26px 20px;max-width:380px;width:100%;
+  text-align:center;box-shadow:var(--shadow-lg)}
+.onboard-logo{width:84px;height:84px;margin-bottom:8px}
+
+/* ---------- Home ---------- */
+.hero{
+  background:linear-gradient(135deg,var(--accent),#ff9b2f);
+  color:#2a2000;border-radius:var(--r);padding:16px;margin-bottom:12px;box-shadow:var(--shadow)
+}
+.hero h2{margin:0 0 4px;font-size:19px}
+.xpbar{height:9px;background:rgba(0,0,0,.16);border-radius:99px;overflow:hidden;margin-top:9px}
+.xpbar>i{display:block;height:100%;background:#2a2000;border-radius:99px;transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:12px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:11px 8px;text-align:center;box-shadow:var(--shadow)}
+.stat b{display:block;font-size:20px;line-height:1.1}
+.stat span{font-size:11.5px;color:var(--ink-2)}
+
+.tile{
+  display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);
+  border-radius:16px;padding:13px;box-shadow:var(--shadow);cursor:pointer;width:100%;text-align:left;
+  font-family:inherit;color:var(--ink);transition:transform .08s
+}
+.tile:active{transform:scale(.985)}
+.tile-ico{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;font-size:20px;flex:none}
+.tile b{display:block;font-size:14.5px}
+.tile small{color:var(--ink-2);font-size:12.5px}
+
+/* Ma'ruza progress halqasi */
+.lec-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:10px}
+.lec-cell{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:10px 6px;
+  text-align:center;cursor:pointer;box-shadow:var(--shadow);font-family:inherit;color:var(--ink)}
+.lec-cell:active{transform:scale(.97)}
+.ring{width:48px;height:48px;margin:0 auto 6px;position:relative}
+.ring svg{transform:rotate(-90deg)}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:13px}
+.lec-cell small{display:block;font-size:10.5px;color:var(--ink-2);line-height:1.25;
+  overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+
+/* ---------- Glossary ---------- */
+.term{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:12px;
+  margin-bottom:9px;box-shadow:var(--shadow)}
+.term-head{display:flex;align-items:flex-start;gap:9px}
+.term-t{font-weight:700;font-size:15.5px;flex:1;min-width:0}
+.term-f{font-size:12.5px;color:var(--ink-2);margin-top:1px}
+.term-d{margin-top:8px;font-size:14px}
+.term-meta{margin-top:9px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.fav{background:none;border:0;font-size:19px;cursor:pointer;padding:0 2px;line-height:1;flex:none}
+.rel-link{background:var(--card-2);border:1px solid var(--line);border-radius:8px;padding:2px 7px;
+  font-size:11.5px;cursor:pointer;color:var(--brand);font-family:inherit;font-weight:600}
+
+/* ---------- Flashcards ---------- */
+.fc-wrap{perspective:1200px;margin-bottom:14px}
+.fc{position:relative;width:100%;min-height:230px;transition:transform .5s cubic-bezier(.4,.2,.2,1);
+  transform-style:preserve-3d;cursor:pointer}
+.fc.flip{transform:rotateY(180deg)}
+.fc-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  box-shadow:var(--shadow-lg)}
+.fc-back{transform:rotateY(180deg)}
+.fc-face .big{font-size:24px;font-weight:800;margin-bottom:6px}
+
+/* ---------- Quiz ---------- */
+.opt{display:block;width:100%;text-align:left;background:var(--card);border:2px solid var(--line);
+  border-radius:15px;padding:13px 14px;margin-bottom:9px;font-size:14.5px;cursor:pointer;
+  font-family:inherit;color:var(--ink);transition:transform .08s}
+.opt:active{transform:scale(.985)}
+.opt.ok{border-color:var(--ok);background:var(--ok-bg)}
+.opt.bad{border-color:var(--bad);background:var(--bad-bg)}
+.opt.dim{opacity:.55}
+.explain{border-left:4px solid var(--brand);background:var(--card-2);padding:11px 12px;
+  border-radius:0 12px 12px 0;font-size:13.5px;margin-top:10px}
+.explain.bad{border-color:var(--bad)}
+.progress{height:8px;background:var(--card-2);border-radius:99px;overflow:hidden;margin-bottom:12px}
+.progress>i{display:block;height:100%;background:var(--brand);transition:width .3s}
+.timer{font-variant-numeric:tabular-nums;font-weight:700}
+
+/* match savoli */
+.match-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.match-row .ml{flex:1.25;min-width:0;background:var(--card-2);border:1px solid var(--line);
+  border-radius:12px;padding:10px;font-size:13.5px}
+.match-row select,.match-row input{flex:1;width:auto;min-width:0}
+
+/* ---------- Circuit builder ---------- */
+.cbox{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:8px;
+  box-shadow:var(--shadow);margin-bottom:10px;overflow:hidden;position:sticky;top:60px;z-index:10}
+.cbox svg{display:block;width:100%;height:auto;touch-action:none}
+/* Palitra — gorizontal siljuvchi tasma (telefonda joyni tejaydi) */
+.palette{display:flex;flex-wrap:nowrap;gap:8px;margin-bottom:12px;overflow-x:auto;
+  padding:2px 2px 8px;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+.part{
+  background:var(--accent);color:#2a2000;border:2px solid #d99c00;border-radius:12px;
+  padding:9px 11px;font-size:12px;font-weight:700;cursor:grab;touch-action:none;
+  box-shadow:var(--shadow);user-select:none;-webkit-user-select:none;
+  flex:none;max-width:160px;line-height:1.25;
+}
+.part.used{opacity:.32;pointer-events:none}
+.part.dragging{opacity:.5}
+.drag-ghost{position:fixed;z-index:200;pointer-events:none;transform:translate(-50%,-50%) scale(1.06)}
+.slot-hint{font-size:12.5px;color:var(--ink-2);margin-bottom:8px}
+
+/* SVG ichidagi uslublar */
+.sv-line{stroke:var(--ink);stroke-width:1.8;fill:none;stroke-linecap:round}
+.sv-rail{stroke:var(--ink);stroke-width:2.2;fill:none}
+.sv-txt{fill:var(--ink);font-size:12px;font-family:inherit}
+.sv-txt-s{fill:var(--ink-2);font-size:10.5px;font-family:inherit}
+.sv-part{fill:var(--card-2);stroke:var(--ink);stroke-width:1.8}
+.sv-slot{fill:none;stroke:var(--brand);stroke-width:2;stroke-dasharray:5 4;opacity:.75}
+.sv-slot.over{stroke:var(--accent);opacity:1;stroke-width:3}
+.sv-slot-fill{fill:var(--brand);opacity:.07}
+.sv-ok rect,.sv-ok circle{stroke:var(--ok) !important}
+.sv-ok text{fill:var(--ok) !important}
+.sv-bad rect,.sv-bad circle{stroke:var(--bad) !important}
+.sv-bad text{fill:var(--bad) !important}
+
+/* ---------- Logic simulator ---------- */
+.logic-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;
+  margin-bottom:12px;box-shadow:var(--shadow)}
+.sw{display:flex;gap:10px;align-items:center;margin-bottom:9px}
+.sw button{width:56px;height:34px;border-radius:99px;border:2px solid var(--line);background:var(--card-2);
+  position:relative;cursor:pointer;flex:none;transition:background .18s,border-color .18s}
+.sw button i{position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:99px;
+  background:var(--ink-2);transition:transform .18s,background .18s}
+.sw button.on{background:var(--ok-bg);border-color:var(--ok)}
+.sw button.on i{transform:translateX(22px);background:var(--ok)}
+.out-lamp{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:99px;
+  border:2px solid var(--line);font-weight:800;font-size:18px;background:var(--card-2);transition:.2s}
+.out-lamp.on{background:var(--ok);border-color:var(--ok);color:#fff;box-shadow:0 0 18px rgba(23,163,91,.5)}
+.truth{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
+.truth th,.truth td{border:1px solid var(--line);padding:6px;text-align:center}
+.truth th{background:var(--card-2);color:var(--ink-2);font-size:12px}
+.truth tr.cur td{background:var(--ok-bg);font-weight:700}
+
+/* ---------- Calc ---------- */
+.formula{background:var(--card-2);border:1px solid var(--line);border-radius:12px;padding:11px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:14px;margin-bottom:10px;
+  overflow-x:auto;white-space:nowrap}
+.steps{list-style:none;padding:0;margin:10px 0 0;counter-reset:s}
+.steps li{position:relative;padding:8px 10px 8px 34px;background:var(--card-2);border-radius:11px;
+  margin-bottom:7px;font-size:13.5px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:9px;top:8px;
+  width:18px;height:18px;border-radius:99px;background:var(--brand);color:#fff;
+  font-size:11px;display:grid;place-items:center;font-family:inherit}
+.result{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#2a2000;
+  border-radius:14px;padding:13px;text-align:center;font-size:21px;font-weight:800;margin-top:10px}
+
+/* ---------- Tabbar ---------- */
+.tabbar{
+  position:fixed;left:0;right:0;bottom:0;z-index:40;
+  display:grid;grid-template-columns:repeat(5,1fr);
+  background:var(--card);border-top:1px solid var(--line);
+  padding-bottom:env(safe-area-inset-bottom);
+  box-shadow:0 -2px 12px rgba(0,0,0,.06)
+}
+.tab{background:none;border:0;padding:7px 2px 8px;display:flex;flex-direction:column;align-items:center;
+  gap:2px;font-size:10.5px;color:var(--ink-2);cursor:pointer;font-family:inherit;height:var(--tabh)}
+.tab .ti{font-size:19px;line-height:1}
+.tab.on{color:var(--brand);font-weight:700}
+
+/* ---------- Toast / confetti ---------- */
+.toast{position:fixed;left:50%;bottom:calc(var(--tabh) + 18px);transform:translate(-50%,20px);
+  background:var(--ink);color:var(--bg);padding:11px 16px;border-radius:13px;font-size:13.5px;
+  font-weight:600;opacity:0;pointer-events:none;transition:.28s;z-index:90;max-width:88vw;text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:95;display:none}
+.confetti.on{display:block}
+
+/* ---------- Misc ---------- */
+.empty{text-align:center;padding:34px 14px;color:var(--ink-2)}
+.empty .big{font-size:40px;margin-bottom:8px}
+.medal{display:flex;gap:10px;align-items:center;padding:10px;border-radius:13px;background:var(--card-2);margin-bottom:8px}
+.medal.off{opacity:.42}
+.medal .m-ico{font-size:24px;flex:none;width:34px;text-align:center}
+.back-btn{background:none;border:0;color:var(--brand);font-weight:700;font-size:14px;
+  padding:0 0 10px;cursor:pointer;font-family:inherit}

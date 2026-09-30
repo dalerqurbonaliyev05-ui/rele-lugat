@@ -1,0 +1,21 @@
+{
+  "name": "rele-lugat",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Rele himoyasi — aqlli lug'at va interaktiv o'quv ilovasi (offline, build bosqichisiz)",
+  "scripts": {
+    "sync": "cap sync android",
+    "add:android": "cap add android",
+    "assets": "capacitor-assets generate --android",
+    "apk": "cd android && gradlew.bat assembleDebug"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.1.2",
+    "@capacitor/cli": "^6.1.2",
+    "@capacitor/core": "^6.1.2",
+    "@capacitor/haptics": "^6.0.1"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "^3.0.5"
+  }
+}

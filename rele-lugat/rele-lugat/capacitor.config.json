@@ -1,0 +1,11 @@
+{
+  "appId": "uz.relelugat.app",
+  "appName": "Rele Lug'at",
+  "webDir": "www",
+  "android": {
+    "allowMixedContent": false
+  },
+  "server": {
+    "androidScheme": "https"
+  }
+}
