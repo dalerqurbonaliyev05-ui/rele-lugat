@@ -1,0 +1,50 @@
+name: Build APK
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Kodni olish
+        uses: actions/checkout@v4
+
+      - name: Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Java 17 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Bog'liqliklarni o'rnatish
+        run: npm install
+
+      - name: Android platformasini qo'shish
+        run: npx cap add android
+
+      - name: Ikonka va splash (xato bersa o'tkazib yuboriladi)
+        continue-on-error: true
+        run: npx capacitor-assets generate --android
+
+      - name: Web fayllarni ko'chirish
+        run: npx cap sync android
+
+      - name: Debug APK yig'ish
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon --stacktrace
+
+      - name: APK ni yuklash
+        uses: actions/upload-artifact@v4
+        with:
+          name: rele-lugat-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
