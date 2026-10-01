@@ -186,7 +186,58 @@ npm run apk
 
 ---
 
-## 4. Git bilan ishlash
+## 4. PWA — iPhone va Android bosh ekraniga o'rnatish
+
+Ilova APK dan tashqari **veb-ilova (PWA)** sifatida ham ishlaydi: Safari (iPhone)
+va Chrome (Android) orqali bosh ekranga ikonka bilan o'rnatiladi, to'liq ekranda
+ochiladi va **internetsiz** ishlaydi.
+
+```bash
+npm run build:web     # → dist-web/  (base: /rele-lugat/app/)
+npm run build         # → dist/      (APK uchun, base: ./ — o'zgarmagan)
+```
+
+### Base yo'li
+
+| Build | Buyruq | Base | Papka |
+|---|---|---|---|
+| APK / file:// | `npm run build` | `./` | `dist/` |
+| Sayt (PWA) | `npm run build:web` | `.env.web` dagi `VITE_BASE=/rele-lugat/app/` | `dist-web/` |
+
+Boshqa manzilga joylash uchun `.env.web` dagi `VITE_BASE` ni o'zgartiring yoki
+muhit o'zgaruvchisi bilan bering (u ustun turadi). Base **slash bilan tugashi** shart.
+
+Saytga joylash: `dist-web/` ichidagini sayt reposidagi `rele-lugat/app/` papkasiga
+ko'chiring (masalan, energyvibe.uz → `https://energyvibe.uz/rele-lugat/app/`).
+Havolani **slash bilan** bering (`/rele-lugat/app/`) — service worker shu yo'lni boshqaradi.
+
+### Qanday ishlaydi
+
+- `public/manifest.webmanifest` — nom, ranglar (#0b1220), ikonkalar; barcha yo'llar nisbiy.
+- `pwa/sw-template.js` → build paytida `sw.js` yaratiladi (`vite.config.ts`,
+  `pwaServiceWorker`): chiqish papkasidagi barcha fayllar oldindan keshlanadi,
+  versiya — ularning kontent xeshi.
+- Yangi versiya joylansa, u **fonda** yuklanadi va ilova **keyingi ochilishda**
+  yangilanadi (ishlab turgan sahifa ostidan fayllar almashmaydi).
+- `src/pwa.ts` — service worker faqat brauzerda ro'yxatdan o'tadi:
+  **APK (Capacitor) ichida, `file://` da va `npm run dev` da o'chiq.**
+- `src/components/InstallHint.tsx` — ilova ichidagi o'rnatish kartochkasi:
+  iOS Safari'da "Ulashish → Bosh ekranga qo'shish" qadamlari, iOS'dagi Chrome'da
+  "Safari'da oching" eslatmasi, Android'da "O'rnatish" tugmasi. Yopilsa qayta chiqmaydi;
+  APK ichida va o'rnatilgan holda ko'rsatilmaydi.
+
+### Ikonkalarni yangilash
+
+```bash
+# public/logo.svg ni almashtiring, so'ng:
+npm run icons         # tools/make-icons.mjs → public/icons/*, public/favicon.ico
+```
+
+APK ikonkalari alohida — `resources/` va `npm run assets` (Capacitor).
+
+---
+
+## 5. Git bilan ishlash
 
 Git o'rnatilgach, loyiha papkasida:
 
@@ -211,16 +262,20 @@ git push -u origin rele-lugat
 
 ---
 
-## 5. Loyiha tuzilishi
+## 6. Loyiha tuzilishi
 
 ```
 index.html                Vite kirish nuqtasi
-vite.config.ts            base:"./", iife bundle (file:// uchun)
+vite.config.ts            base (./ yoki VITE_BASE), iife bundle, sw.js generatori
+.env.web                  PWA build uchun VITE_BASE=/rele-lugat/app/
+pwa/sw-template.js        service worker shabloni
+tools/make-icons.mjs      PWA ikonkalari (sharp)
 capacitor.config.ts       appId: uz.relelugat.app, webDir: dist
-public/                   icon.svg, logo.svg
+public/                   icon.svg, logo.svg, manifest.webmanifest, icons/, favicon.ico
 resources/                APK ikonkasi va splash (PNG)
 src/
   main.tsx, App.tsx       ildiz, marshrutlash, status bar, tabbar, onboarding
+  pwa.ts                  service worker, platformani aniqlash, o'rnatish taklifi
   types.ts                barcha tiplar, L10n = {uz, ru, en}
   store.ts                localStorage: XP, streak, SRS, xatolar, yo'l bosqichlari
   styles.css              dizayn tokenlari va barcha uslublar (kunduzgi/tungi)
@@ -258,7 +313,7 @@ promo/                    reklama roliki (alohida loyiha, ilovaga ta'sir qilmayd
 
 ---
 
-## 6. Kontent qo'shish
+## 7. Kontent qo'shish
 
 Barcha matnlar `L10n` tipida: `{ uz: "…", ru: "…", en: "…" }`.
 TypeScript uchala tilni to'ldirishni **majburlaydi** — birortasi tushib qolsa build xato beradi.
@@ -368,7 +423,7 @@ Chalg'ituvchi detallarni `parts` ga qo'shing — ular tekshirishda qizil bilan b
 
 ---
 
-## 7. Ilova bo'limlari
+## 8. Ilova bo'limlari
 
 | Bo'lim | Nima qiladi |
 |---|---|
@@ -389,7 +444,7 @@ Chalg'ituvchi detallarni `parts` ga qo'shing — ular tekshirishda qizil bilan b
 
 ---
 
-## 8. Maxfiylik
+## 9. Maxfiylik
 
 Ilova birinchi ishga tushirishda faqat **til** va **ismni** so'raydi. Boshqa hech qanday
 ma'lumot yig'ilmaydi, internetga hech narsa yuborilmaydi. Butun progress telefonning

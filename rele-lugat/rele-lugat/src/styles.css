@@ -68,6 +68,26 @@
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html, body { margin: 0; padding: 0; }
 
+/* Mobil (ayniqsa iOS Safari / PWA):
+   - text-size-adjust: aylantirganda iOS shriftni o'zicha kattalashtirmasin;
+   - touch-action: manipulation — ikki marta teginishda zoom bo'lmaydi;
+   - balandlik: 100vh iOS'da manzil paneli ostiga tushadi, shuning uchun
+     -webkit-fill-available (eski iOS) va 100dvh (yangi brauzerlar). */
+html {
+  -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
+  touch-action: manipulation;
+  height: -webkit-fill-available;
+}
+body { min-height: 100vh; min-height: -webkit-fill-available; min-height: 100dvh; }
+
+/* Tugma va kartochkalarni bosganda matn belgilanmasin, iOS menyusi chiqmasin.
+   O'qiladigan matn (ta'riflar, tushuntirishlar) belgilanadigan bo'lib qoladi. */
+button, a, .tab, .pbtn, .opt, .tile, .chip, .part, .fc, .panel-btn, .sb-btn, .pm-node, .sw {
+  -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
+}
+/* iOS Safari: ota elementdagi user-select:none maydonga yozishni bloklab qo'yishi mumkin. */
+input, textarea, select { -webkit-user-select: text; user-select: text; }
+
 body {
   font-family: var(--sans);
   background: var(--bg);
@@ -128,6 +148,7 @@ p { margin: 0 0 10px; }
   position: sticky; top: 0; z-index: 30;
   display: flex; align-items: center; gap: 10px;
   padding: 8px 12px; padding-top: calc(8px + env(safe-area-inset-top));
+  padding-left: calc(12px + env(safe-area-inset-left)); padding-right: calc(12px + env(safe-area-inset-right));
   background: linear-gradient(180deg, #0e1729 0%, #0b1220 100%);
   border-bottom: 1px solid var(--line-2);
   box-shadow: 0 2px 14px rgba(0, 0, 0, 0.5);
@@ -716,7 +737,8 @@ p { margin: 0 0 10px; }
 }
 input[type="text"], input[type="number"], input[type="search"], select {
   width: 100%; padding: 11px 12px; border-radius: 9px; border: 1px solid var(--line-2);
-  background: #0c1422; color: var(--ink); font-size: 15px; font-family: var(--mono);
+  /* 16px: iOS Safari bundan kichik shriftli maydonga fokusda sahifani zoom qiladi */
+  background: #0c1422; color: var(--ink); font-size: 16px; font-family: var(--mono);
   box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.4);
 }
 :root[data-theme="light"] input, :root[data-theme="light"] select { background: #f6f9fd; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.07); }
@@ -758,6 +780,7 @@ input:focus, select:focus { outline: 2px solid var(--led-blue); outline-offset: 
   background: linear-gradient(180deg, #111c33 0%, #0a1120 100%);
   border-top: 1px solid var(--line-2);
   padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right);
   box-shadow: 0 -3px 16px rgba(0, 0, 0, 0.5);
 }
 :root[data-theme="light"] .tabbar { background: linear-gradient(180deg, #ffffff, #eef3fa); }
@@ -778,13 +801,42 @@ input:focus, select:focus { outline: 2px solid var(--led-blue); outline-offset: 
    ================================================================== */
 
 .toast {
-  position: fixed; left: 50%; bottom: calc(var(--tabh) + 16px); transform: translate(-50%, 18px);
+  position: fixed; left: 50%; bottom: calc(var(--tabh) + env(safe-area-inset-bottom) + 16px); transform: translate(-50%, 18px);
   background: var(--panel); border: 1px solid var(--led-amber); color: var(--ink);
   padding: 10px 15px; border-radius: 9px; font-size: 13px; font-weight: 600;
   opacity: 0; pointer-events: none; transition: 0.28s; z-index: 90; max-width: 88vw; text-align: center;
   box-shadow: var(--shadow);
 }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* PWA: "bosh ekranga o'rnatish" kartochkasi (tab bar ustida, toast ostida) */
+.install-hint {
+  position: fixed; z-index: 45;
+  left: calc(10px + env(safe-area-inset-left)); right: calc(10px + env(safe-area-inset-right));
+  bottom: calc(var(--tabh) + env(safe-area-inset-bottom) + 10px);
+  max-width: 460px; margin: 0 auto; padding: 12px 12px 12px;
+  background: var(--metal); border: 1px solid var(--led-blue); border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55), var(--inset);
+  animation: ihIn 0.32s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+@keyframes ihIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+.ih-head { display: flex; align-items: center; gap: 10px; }
+.ih-icon { flex: none; width: 40px; height: 40px; border-radius: 10px; }
+.ih-text { flex: 1; min-width: 0; display: grid; gap: 1px; }
+.ih-text b { font-size: 14px; }
+.ih-text span { font-size: 12px; color: var(--ink-2); line-height: 1.35; }
+.ih-x {
+  flex: none; align-self: flex-start; width: 30px; height: 30px; border-radius: 8px; cursor: pointer;
+  background: var(--panel-2); border: 1px solid var(--line-2); color: var(--ink-2); font-size: 18px; line-height: 1;
+}
+.ih-steps { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 7px; }
+.ih-steps li, .ih-note {
+  display: flex; align-items: center; gap: 8px; font-size: 12.5px; line-height: 1.35;
+  background: var(--panel-2); border: 1px solid var(--line); border-radius: 9px; padding: 7px 9px;
+}
+.ih-note { margin: 10px 0 0; }
+.ih-share, .ih-plus { flex: none; color: var(--led-blue); font-weight: 700; }
+.ih-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 10px; }
 
 .confetti { position: fixed; inset: 0; pointer-events: none; z-index: 95; display: none; }
 .confetti.on { display: block; }

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import InstallHint from "./components/InstallHint";
 import { Led } from "./components/Panel";
 import { I18nProvider, LANG_FLAGS, LANG_NAMES, useI18n } from "./i18n";
 import type { UIKey } from "./i18n/strings";
@@ -106,15 +107,16 @@ function Shell() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  /* ---------- tovushni birinchi teginishda ochish ---------- */
+  /* ---------- tovush: teginishda ochish va qayta uyg'otish ----------
+     `once` emas: iOS Safari ilova fonga o'tganda AudioContext ni
+     "interrupted"/"suspended" holatiga qaytaradi — har teginishda tekshiramiz
+     (ishlab turgan bo'lsa unlockAudio hech narsa qilmaydi). touchend — eski iOS
+     faqat shu hodisada audio'ni ochadi. */
   useEffect(() => {
     const h = () => unlockAudio();
-    window.addEventListener("pointerdown", h, { once: true });
-    window.addEventListener("keydown", h, { once: true });
-    return () => {
-      window.removeEventListener("pointerdown", h);
-      window.removeEventListener("keydown", h);
-    };
+    const evs = ["pointerdown", "touchend", "keydown"] as const;
+    evs.forEach((e) => window.addEventListener(e, h, { passive: true }));
+    return () => evs.forEach((e) => window.removeEventListener(e, h));
   }, []);
 
   const refresh = useCallback(() => force((n) => n + 1), []);
@@ -164,7 +166,7 @@ function Shell() {
   return (
     <NavContext.Provider value={nav}>
       <header className="statusbar">
-        <img src="./logo.svg" alt="" className="sb-logo" />
+        <img src={`${__APP_BASE__}logo.svg`} alt="" className="sb-logo" />
         <div className="sb-name">
           <b>{t(title[0])}</b>
           {t(title[1])}
@@ -208,6 +210,7 @@ function Shell() {
       </nav>
 
       <div className={`toast${toastMsg ? " show" : ""}`}>{toastMsg}</div>
+      <InstallHint />
       <canvas id="confetti" className="confetti" />
       <div id="alarm-flash" />
     </NavContext.Provider>
@@ -267,7 +270,7 @@ function Onboard({ onDone }: { onDone: () => void }) {
       <div className="onboard-card">
         <i className="screw s-tl" /><i className="screw s-tr" />
         <i className="screw s-bl" /><i className="screw s-br" />
-        <img src="./logo.svg" alt="" className="onboard-logo" />
+        <img src={`${__APP_BASE__}logo.svg`} alt="" className="onboard-logo" />
         <h1>{t("appName")}</h1>
         <p className="muted small">{t("onboardTagline")}</p>
 

@@ -7,6 +7,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:web": "tsc -b && vite build --mode web",
+    "icons": "node tools/make-icons.mjs",
     "preview": "vite preview",
     "check": "tsc -b --noEmit",
     "add:android": "cap add android",
@@ -29,6 +31,7 @@
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^5.0.4",
+    "sharp": "^0.32.6",
     "typescript": "^5.9.3",
     "vite": "^7.1.9"
   }

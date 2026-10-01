@@ -16,3 +16,6 @@ Thumbs.db
 
 # package-lock.json ataylab saqlanadi: GitHub Actions'da
 # bog'liqliklar bir xil versiyada o'rnatilishi uchun kerak.
+
+# PWA web build (npm run build:web)
+dist-web/

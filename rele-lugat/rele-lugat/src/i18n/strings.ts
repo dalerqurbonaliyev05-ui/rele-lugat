@@ -369,6 +369,32 @@ export const UI = {
   themeLabel: { uz: "Mavzu", ru: "Тема", en: "Theme" },
   themeDark: { uz: "Tungi", ru: "Тёмная", en: "Dark" },
   themeLight: { uz: "Kunduzgi", ru: "Светлая", en: "Light" },
+
+  /* --- PWA: bosh ekranga o'rnatish --- */
+  installTitle: { uz: "Ilovani o'rnating", ru: "Установите приложение", en: "Install the app" },
+  installSub: {
+    uz: "Bosh ekrandan ochiladi va internetsiz ishlaydi.",
+    ru: "Открывается с главного экрана и работает без интернета.",
+    en: "Opens from your home screen and works offline.",
+  },
+  installIos1: {
+    uz: "«Ulashish» tugmasini bosing (yangi iOS'da avval «•••» menyusini oching).",
+    ru: "Нажмите «Поделиться» (в новых iOS сначала откройте меню «•••»).",
+    en: "Tap Share (on newer iOS, open the “•••” menu first).",
+  },
+  installIos2: {
+    uz: "«Bosh ekranga qo'shish»ni tanlang (Add to Home Screen / На экран «Домой»).",
+    ru: "Выберите «На экран „Домой“».",
+    en: "Choose “Add to Home Screen”.",
+  },
+  installIos3: { uz: "«Qo'shish»ni bosing.", ru: "Нажмите «Добавить».", en: "Tap “Add”." },
+  installSafari: {
+    uz: "iPhone'ga o'rnatish uchun bu sahifani Safari'da oching.",
+    ru: "Чтобы установить на iPhone, откройте эту страницу в Safari.",
+    en: "To install on iPhone, open this page in Safari.",
+  },
+  installBtn: { uz: "O'rnatish", ru: "Установить", en: "Install" },
+  installLater: { uz: "Keyinroq", ru: "Позже", en: "Later" },
 } satisfies Record<string, L10n>;
 
 export type UIKey = keyof typeof UI;

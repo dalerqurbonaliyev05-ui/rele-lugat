@@ -24,13 +24,27 @@ function ac(): AudioContext | null {
   return ctx;
 }
 
-/** Birinchi foydalanuvchi teginishida chaqiriladi (App.tsx). */
+/**
+ * Har foydalanuvchi teginishida chaqiriladi (App.tsx).
+ * Kontekst ishlab turgan bo'lsa hech narsa qilmaydi.
+ */
 export function unlockAudio(): void {
-  if (unlocked) return;
   const c = ac();
   if (!c) return;
+  // iOS: "interrupted" (qo'ng'iroq, fonga o'tish) yoki "suspended" — qayta uyg'otamiz.
+  if (c.state !== "running") void c.resume().catch(() => {});
+  if (unlocked) return;
   unlocked = true;
-  if (c.state === "suspended") void c.resume();
+  // Eski iOS Safari audio'ni faqat teginish ichida chalingan tovushdan keyin ochadi —
+  // 1 namunali jim bufer chalamiz.
+  try {
+    const silent = c.createBufferSource();
+    silent.buffer = c.createBuffer(1, 1, c.sampleRate);
+    silent.connect(c.destination);
+    silent.start(0);
+  } catch {
+    /* e'tiborsiz */
+  }
 }
 
 function on(): boolean {
