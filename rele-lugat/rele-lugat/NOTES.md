@@ -19,7 +19,7 @@ Ilovada 8-ma'ruza **bog'lovchi mavzu** sifatida qo'shildi:
   aylantiruvchi va qarshi ta'sir momentlari, Xr.i / Xr.q, qaytish koeffitsienti,
   o'rnatmani prujina yoki chulg'am ulanishi orqali rostlash.
 - **Hech qanday yangi son, ta'rif yoki qiymat to'qilmagan.**
-- `www/data/lectures.js` da bu ma'ruza `synth: true` bayrog'i bilan belgilangan
+- `src/data/lectures.ts` da bu ma'ruza `synth: true` bayrog'i bilan belgilangan
   va `lecture8note` matnida izohlangan.
 - 8-ma'ruza savollarining tushuntirishlarida asl manba ma'ruza (3 yoki 9)
   qavs ichida ko'rsatilgan.
@@ -175,17 +175,29 @@ matematik chiqarishlar yoki rasm tahlili bo'lib, interaktiv formatga mos kelmayd
 - **15-ma'ruza:** 15.3-rasmdagi kesim zonasini grafik aniqlash — formulaga
   (15.3) aylantirib, hisoblagich sifatida berildi.
 
-### Sxema konstruktorida hozircha yo'q sxemalar
+### Sxema konstruktoridagi sxemalar (24 ta)
 
-Arxitektura `circuits.js` ga yangi obyekt qo'shish bilan kengayadi (README, 5-bo'lim).
-Quyidagilar keyingi bosqichga qoldirildi:
+Yuqorida sanab o'tilganlarning aksariyati endi konstruktorga kiritildi:
 
-- TT ning boshqa ulanish sxemalari: to'liq bo'lmagan yulduz, uchburchak-yulduz,
-  toklar farqi, nol ketma-ketlik filtri (6-ma'ruza)
-- KT ulanishi: yulduz, ochiq uchburchak, nol ketma-ketlik kuchlanish filtri (7-ma'ruza)
-- MTH ning ikki fazali va bitta releli sxemalari (12.5-rasm)
-- Teskari ketma-ketlik kuchlanish relesi bilan MTH (14.3-rasm)
-- Sabr vaqtli tokli kesim (15.2,b-rasm)
+**Pog'onali (operativ zanjirlar), `src/data/circuits/ladder.ts`:**
+RH strukturaviy sxemasi (3.1), MTH strukturaviy sxemasi (12.3), MTH o'zgarmas
+operativ tok zanjiri (12.4,b), ikkita releli ikki fazali MTH (12.5,b), bitta releli
+MTH (12.5,e), bog'liq xarakteristikali MTH (12.4,d), kuchlanish bo'yicha ishga
+tushuvchi MTH (14.2,a), teskari ketma-ketlik relesi bilan MTH (14.3,b), sabr vaqtsiz
+kesim (15.2,a), sabr vaqtli kesim (15.2,b), yarimo'tkazgich elementli kesim (15.2,d),
+vaqt va ko'rsatgich relesi (10.8,a / 10.9), ko'rsatgich relesining parallel ulanishi
+(10.8,b), termik barqaror vaqt relesi (10.11), oraliq rele ulanishi (10.1,a),
+o'chirish zanjirini KH bilan nazorat qilish (4-ma'ruza, 1.18).
+
+**Erkin (tok va kuchlanish zanjirlari), `src/data/circuits/free.ts`:**
+TT to'liq yulduz (6.1), to'liq bo'lmagan yulduz (6.4), uchburchak-yulduz (6.5),
+toklar farqi (6.7), nol ketma-ketlik toklar filtri (6.8), KT yulduz (7.5),
+ochiq uchburchak (7.7), nol ketma-ketlik kuchlanish filtri (7.8).
+
+**Soddalashtirish (aniq belgilangan):** 6.5-rasmdagi uchburchak ulanish konstruktorda
+bitta tugun shinasi bilan ko'rsatilgan — telefon ekranida haqiqiy uchburchak
+geometriyasi o'qib bo'lmas darajada siqilib ketardi. Sxema tavsifida bu ochiq
+aytilgan, reledagi toklar (Ia − Ib va h.k.) va ksx = √3 esa to'g'ri berilgan.
 
 ---
 
@@ -210,12 +222,31 @@ Bu qiymatlar g'alati ko'rinadi, ammo manbada aniq yozilgani uchun ilovaga
 
 ---
 
-## 8. Ishlab chiqish jarayonidagi cheklovlar
+## 8. Tarjima haqida
 
-- Bu kompyuterda `node` o'rnatilmagan, shuning uchun `node --check` o'rniga
-  barcha JS fayllar brauzerning o'z parseri bilan tekshirildi (har bir fayl
-  `new Function(text)` orqali). Barcha fayllar toza.
-- `git` va `gh` o'rnatilmagan — commit va pull request qo'lda bajariladi
-  (README, 3-bo'lim).
-- Ilova mobil ko'rinishda (375×812) brauzerda sinovdan o'tkazildi: barcha
-  bo'limlar, 6 ta sxema, 16 ta hisoblagich va drag-and-drop ishlaydi.
+Ilova uch tilda: o'zbekcha (asl manba tili), ruscha va inglizcha.
+
+- **Ruscha** atamalar manba adabiyotidagi standart rus terminologiyasiga
+  moslashtirildi (РЗ, КЗ, ЛЭП, МТЗ, ТТ, ТН, АПВ, АВР, АЧР, kотс, kв, kч, Iс.з, Iс.р).
+  Ma'ruza matni o'zi rus manbalaridan o'zbekchaga o'girilgan, shuning uchun ruscha
+  variant asl atamalarga eng yaqin.
+- **Inglizcha** — xalqaro amaliyotdagi atamalar (relay protection, short circuit,
+  overcurrent protection, CT/VT, auto-reclosing, reset ratio, sensitivity factor).
+  Ba'zi qisqartmalar to'g'ridan to'g'ri mos kelmaydi (masalan RH → RP/OCP kontekstga
+  qarab), shuning uchun har bir atamaning to'liq shakli ham berilgan.
+- **Formulalar tarjima qilinmaydi** — ular ma'ruzadagi belgilar bilan qoladi
+  (Ihi, ksoz, kqay, ko'it, Δt). Faqat o'zgaruvchilar tavsifi tarjima qilinadi.
+- Sxemalardagi apparat belgilari (KA, KT, KL, KH, SQ, YAT, TA, TV) xalqaro
+  belgilar bo'lgani uchun uchala tilda bir xil qoldirildi.
+
+## 9. Ishlab chiqish jarayonidagi cheklovlar
+
+- `git` va `gh` bu kompyuterda o'rnatilmagan — commit va pull request qo'lda
+  bajariladi (README, 3-bo'lim).
+- Node.js `C:\Program Files\nodejs` da, lekin PATH'da yo'q; shell'da qo'lda
+  qo'shish kerak (README, 1-bo'lim oxiridagi eslatma).
+- Sinovdan o'tkazilgan: `tsc` xatosiz, production build xatosiz, ilova mobil
+  ko'rinishda (375×812) brauzerda tekshirildi — 24 ta sxemaning barchasi
+  chiziladi, drag-and-drop (haqiqiy sichqoncha bilan) ishlaydi, tekshirish
+  100 % beradi, uchala til interfeys va kontentni almashtiradi, konsolda
+  xato yo'q.

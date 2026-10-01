@@ -1,0 +1,18 @@
+# Bog'liqliklar va yig'ish natijalari
+node_modules/
+dist/
+android/
+ios/
+*.tsbuildinfo
+
+# Shaxsiy o'quv materiali — repoga va APK ga kirmaydi
+lectures/
+*.pdf
+
+# Tizim fayllari
+.DS_Store
+Thumbs.db
+*.log
+
+# package-lock.json ataylab saqlanadi: GitHub Actions'da
+# bog'liqliklar bir xil versiyada o'rnatilishi uchun kerak.

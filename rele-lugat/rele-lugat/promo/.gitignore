@@ -1,0 +1,7 @@
+node_modules/
+out/
+.rec/
+
+# Yozib olingan kliplar (~20 MB) va SFX (~1 MB) ATAYLAB repoda saqlanadi:
+# shunda klonlagan odam darhol `npx remotion render` qila oladi.
+# Ularni qaytadan yaratish kerak bo'lsa: `npm run record`, `npm run sfx`.

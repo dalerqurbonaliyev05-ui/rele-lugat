@@ -1,0 +1,14 @@
+# Repo ildizi uchun. Loyihaning o'z qoidalari
+# rele-lugat/rele-lugat/.gitignore da.
+
+# Bog'liqliklar va yig'ish natijalari — qaysi papkada bo'lsa ham
+node_modules/
+dist/
+android/
+ios/
+*.tsbuildinfo
+
+# Tizim fayllari
+.DS_Store
+Thumbs.db
+*.log

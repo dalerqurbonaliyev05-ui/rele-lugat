@@ -1,21 +1,35 @@
 {
   "name": "rele-lugat",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
-  "description": "Rele himoyasi — aqlli lug'at va interaktiv o'quv ilovasi (offline, build bosqichisiz)",
+  "type": "module",
+  "description": "Rele himoyasi — aqlli lug'at va interaktiv o'quv ilovasi (uz / ru / en)",
   "scripts": {
-    "sync": "cap sync android",
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "check": "tsc -b --noEmit",
     "add:android": "cap add android",
+    "sync": "cap sync android",
     "assets": "capacitor-assets generate --android",
     "apk": "cd android && gradlew.bat assembleDebug"
   },
   "dependencies": {
-    "@capacitor/android": "^6.1.2",
-    "@capacitor/cli": "^6.1.2",
-    "@capacitor/core": "^6.1.2",
-    "@capacitor/haptics": "^6.0.1"
+    "@capacitor/android": "^7.4.3",
+    "@capacitor/app": "^7.0.2",
+    "@capacitor/core": "^7.4.3",
+    "@capacitor/haptics": "^7.0.2",
+    "@capacitor/status-bar": "^7.0.2",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
-    "@capacitor/assets": "^3.0.5"
+    "@capacitor/assets": "^3.0.5",
+    "@capacitor/cli": "^7.4.3",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^5.0.4",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.9"
   }
 }

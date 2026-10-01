@@ -1,0 +1,11 @@
+{
+  "duration": 14.376,
+  "fps": 30,
+  "marks": {
+    "question": 5.083,
+    "wrongTap": 5.136,
+    "alarm": 7.253,
+    "question2": 11.086,
+    "ok": 13.327
+  }
+}

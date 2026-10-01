@@ -1,0 +1,32 @@
+{
+  "name": "rele-lugat-promo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Rele Lug'at — motion reklama (Remotion + Playwright)",
+  "scripts": {
+    "studio": "remotion studio",
+    "sfx": "tsx sfx/generate.ts",
+    "record": "tsx record/record.ts",
+    "render:30": "remotion render Main30 out/rele-reklama-30s-uz.mp4",
+    "render:15": "remotion render Main15 out/rele-reklama-15s-uz.mp4",
+    "render:1x1": "remotion render Square out/rele-reklama-1x1-uz.mp4",
+    "render:all": "npm run render:30 && npm run render:15 && npm run render:1x1",
+    "check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.370",
+    "@remotion/google-fonts": "^4.0.370",
+    "@remotion/media-utils": "^4.0.370",
+    "@remotion/shapes": "^4.0.370",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "remotion": "^4.0.370"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "playwright": "^1.50.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.9.0"
+  }
+}
